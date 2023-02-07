@@ -13,16 +13,13 @@ awsurl = "http://ec2-54-184-13-84.us-west-2.compute.amazonaws.com:443"
 def GetTemporaryID():
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.get("http://gaugan.org/gaugan2/")
-    time.sleep(1.5)
     termsCheck = driver.find_element(By.XPATH,"//button[@aria-label='Close Tour']")
     termsCheck.send_keys(Keys.ENTER)
     termsCheck = driver.find_element(By.ID, "myCheck")
     termsCheck.send_keys(Keys.SPACE)
     fileUpload = driver.find_element(By.ID, "render")
     fileUpload.send_keys(Keys.ENTER)
-    time.sleep(4)
     all_requests = driver.requests
-    print("total requests: ", len(all_requests))
     for req in all_requests:
         if req.url.count("infer") > 0:
             print(req.url)
